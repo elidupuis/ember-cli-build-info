@@ -35,12 +35,12 @@ In a route, controller, or service:
 var buildInfo = this.buildInfo;
 ```
 
-You can be override the key in your config file using the `ENV.buildInfoKey`.
+You can override the `buildInfo` key in your config file using the `ENV.buildInfoKey`.
 
 ```js
 var ENV = {
   // ...
-  buildInfoKey: 'appDeets', // no use `appDeets` instead of `buildInfo`
+  buildInfoKey: 'appDeets', // now use `appDeets` instead of `buildInfo`
   // ...
 }
 ```
@@ -48,8 +48,6 @@ var ENV = {
 # Collaborating
 
 This README outlines the details of collaborating on this Ember addon.
-
-## Installation
 
 * `git clone` this repository
 * `npm install`
