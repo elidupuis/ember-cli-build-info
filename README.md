@@ -1,4 +1,45 @@
-# Ember-cli-build-info
+# ember-cli-build-info
+
+> Inject build info into your routes, controllers, and services.
+
+*Note: this addon currently assumes you are using git for version control.*
+
+Information includes:
+
+```js
+buildInfo: {
+  version: '0.1.4', // pulled from package.json
+  desc: 'v0.1.4-3-g53df212', // from shell command `git describe`
+  commit: '53df212', // from `desc` above
+}
+```
+
+In order to retrieve the git information, this addon runs a syncronous shell command using [exec-sync](https://www.npmjs.com/package/exec-sync).
+
+## Usage 
+
+In a template:
+```html
+<p>Version: {{buildInfo.version}}</p>
+<p>SHA: {{buildInfo.commit}}</p>
+```
+
+In a route, controller, or service:
+```js
+var buildInfo = this.buildInfo;
+```
+
+You can be override the key in your config file using the `ENV.buildInfoKey`.
+
+```js
+var ENV = {
+  // ...
+  buildInfoKey: 'appDeets', // no use `appDeets` instead of `buildInfo`
+  // ...
+}
+```
+
+# Collaborating
 
 This README outlines the details of collaborating on this Ember addon.
 

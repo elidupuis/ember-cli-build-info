@@ -1,3 +1,11 @@
 <h2 id='title'>Welcome to Ember.js</h2>
 
+{{log buildInfo}}
+<h3>Build Info</h3>
+<ul>
+  <li>Version: {{buildInfo.version}}</li>
+  <li>Commit: {{buildInfo.commit}}</li>
+  <li>Descripton: {{buildInfo.desc}}</li>
+</ul>
+
 {{outlet}}
