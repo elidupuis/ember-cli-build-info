@@ -30,9 +30,11 @@
     "ember-cli-qunit": "0.1.2",
     "ember-data": "1.0.0-beta.12",
     "ember-export-application-global": "^1.0.0",
-    "exec-sync": "^0.1.6",
     "express": "^4.8.5",
     "glob": "^4.0.5"
+  },
+  "dependencies": {
+    "exec-sync": "^0.1.6"
   },
   "description": "Inject build information (version, current SHA) into your Ember app.",
   "keywords": [

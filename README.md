@@ -16,6 +16,12 @@ buildInfo: {
 
 In order to retrieve the git information, this addon runs a syncronous shell command using [exec-sync](https://www.npmjs.com/package/exec-sync).
 
+## Installation
+
+```bash
+npm install --save-dev ember-cli-build-info
+```
+
 ## Usage 
 
 In a template:
