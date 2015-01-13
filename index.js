@@ -30,5 +30,22 @@ module.exports = {
     if (!config.APP.BUILD_INFO) {
       config.APP.BUILD_INFO = info;
     }
+  },
+
+  /**
+   * Inject a <meta> tag with the build info as the content.
+   * TODO: make configurable via env option `APP.buildInfoOptions`
+   */
+  contentFor: function(type, config) {
+    var info = config.APP.BUILD_INFO;
+    var template = 'VERSION: {VERSION} DESC: {DESC}';
+    var output = template
+      .replace(/\{VERSION\}/, info.version)
+      .replace(/\{DESC\}/, info.desc)
+      .replace(/\{COMMIT\}/, info.commit);
+
+    if (type === 'head') {
+      return '<meta name="build-info" content="' + output + '"/>';
+    }
   }
 };
