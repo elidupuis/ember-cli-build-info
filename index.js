@@ -6,15 +6,20 @@ var execSync = require('exec-sync');
 module.exports = {
   name: 'ember-cli-build-info',
 
-  config: function(env, config) {
+  /**
+   * Collect Build Info data
+   */
+  included: function(app, parentAddon) {
+    var target = (parentAddon || app);
     var info;
     var commit;
 
     var defaultOptions = {
-      metaTemplate: false // 'VERSION: {VERSION} SHA: {COMMIT}'
+      metaTemplate: false, // 'VERSION: {VERSION} SHA: {COMMIT}',
+      injectedKey: 'buildInfo'
     };
 
-    this.options = config.APP.buildInfoOptions || {};
+    this.options = target.options.buildInfoOptions || {};
 
     // merge options
     for (var option in defaultOptions) {
@@ -41,7 +46,15 @@ module.exports = {
     }
 
     // store the info
-    this.info = config.APP.BUILD_INFO = info;
+    this.info = info;
+  },
+
+  /**
+   * Expose the data on the APP object.
+   * FIXME: I doubt this is the best way to do this..
+   */
+  config: function(env, config) {
+    config.APP.BUILD_INFO = this.info;
   },
 
   /**
