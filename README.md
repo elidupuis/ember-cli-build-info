@@ -45,6 +45,14 @@ var ENV = {
 }
 ```
 
+## Meta tag
+
+This addon also injects a meta tag into the `head` of your HTML document.
+
+```
+<meta name="build-info" content="VERSION: 0.0.2 DESC: v0.0.2-3-g5421b77"/>
+```
+
 # Collaborating
 
 This README outlines the details of collaborating on this Ember addon.
