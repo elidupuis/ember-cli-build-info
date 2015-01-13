@@ -45,13 +45,26 @@ var ENV = {
 }
 ```
 
-## Meta tag
+## Options
+Currently the only option is `metaTemplate` which allows you to inject a meta tag containing the build info.
 
-This addon also injects a meta tag into the `head` of your HTML document.
+`metaTemplate` is an opt-in option (defaults to `false`). Simply define a content template in your environment config:
 
+```js
+// ENV.APP.buildInfoOptions
+buildInfoOptions: {
+  metaTemplate: 'version:{VERSION}'
+}
 ```
-<meta name="build-info" content="VERSION: 0.0.2 DESC: v0.0.2-3-g5421b77"/>
+
+will result in:
+
+```html
+<meta name="build-info" content="version:0.0.2"/>
 ```
+
+Available keys include `{VERSION}`, `{DESC}`, and `{COMMIT}`. These keys will be replaced by the current build info values.
+
 
 # Collaborating
 
