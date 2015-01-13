@@ -6,10 +6,29 @@ var execSync = require('exec-sync');
 module.exports = {
   name: 'ember-cli-build-info',
 
-  config: function(env, config) {
+  /**
+   * Collect Build Info data
+   */
+  included: function(app, parentAddon) {
+    var target = (parentAddon || app);
     var info;
     var commit;
 
+    var defaultOptions = {
+      metaTemplate: false, // 'VERSION: {VERSION} SHA: {COMMIT}',
+      injectedKey: 'buildInfo'
+    };
+
+    this.options = target.options.buildInfoOptions || {};
+
+    // merge options
+    for (var option in defaultOptions) {
+      if (!this.options.hasOwnProperty(option)) {
+        this.options[option] = defaultOptions[option];
+      }
+    }
+
+    // build info object
     info = {
       version: this.project.pkg.version || '',
       desc: execSync('git describe --tags --long --always') || null
@@ -26,25 +45,35 @@ module.exports = {
       info.commit = commit;
     }
 
-    // add build info to APP config
-    if (!config.APP.BUILD_INFO) {
-      config.APP.BUILD_INFO = info;
-    }
+    // store the info
+    this.info = info;
+  },
+
+  /**
+   * Expose the data on the APP object.
+   * FIXME: I doubt this is the best way to do this..
+   */
+  config: function(env, config) {
+    config.APP.BUILD_INFO = this.info;
   },
 
   /**
    * Inject a <meta> tag with the build info as the content.
-   * TODO: make configurable via env option `APP.buildInfoOptions`
    */
-  contentFor: function(type, config) {
-    var info = config.APP.BUILD_INFO;
-    var template = 'VERSION: {VERSION} DESC: {DESC}';
-    var output = template
-      .replace(/\{VERSION\}/, info.version)
-      .replace(/\{DESC\}/, info.desc)
-      .replace(/\{COMMIT\}/, info.commit);
+  contentFor: function(type) {
+    var info    = this.info;
+    var options = this.options;
+    var output;
 
     if (type === 'head') {
+      //abort meta tag injection if there's no template
+      if (!options.metaTemplate) { return; }
+
+      output = options.metaTemplate
+        .replace(/\{VERSION\}/g, info.version)
+        .replace(/\{DESC\}/g, info.desc)
+        .replace(/\{COMMIT\}/g, info.commit);
+
       return '<meta name="build-info" content="' + output + '"/>';
     }
   }

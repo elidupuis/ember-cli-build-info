@@ -23,6 +23,7 @@ npm install --save-dev ember-cli-build-info
 ```
 
 ## Usage 
+The data is injected into routes, controllers, and services using the `buildInfo` key.
 
 In a template:
 ```html
@@ -35,23 +36,27 @@ In a route, controller, or service:
 var buildInfo = this.buildInfo;
 ```
 
-You can override the `buildInfo` key in your config file using the `ENV.buildInfoKey`.
+## Configuration Options
+There is currently only 1 configurable option. Customize using the `buildInfoOptions` hash in your Brocfile:
 
 ```js
-var ENV = {
-  // ...
-  buildInfoKey: 'appDeets', // now use `appDeets` instead of `buildInfo`
-  // ...
-}
+var app = new EmberApp({
+  buildInfoOptions: {
+    metaTemplate: 'version={VERSION}'
+  }
+});
 ```
 
-## Meta tag
+### `metaTemplate`
+Allows you to inject a meta tag containing the build info. Defaults to `false`.
 
-This addon also injects a meta tag into the `head` of your HTML document.
+Available template keys include `{VERSION}`, `{DESC}`, and `{COMMIT}`. These keys will be replaced by the current build info values.
 
+The example above would yeild:
+```html
+<meta name="build-info" content="version:0.0.2"/>
 ```
-<meta name="build-info" content="VERSION: 0.0.2 DESC: v0.0.2-3-g5421b77"/>
-```
+
 
 # Collaborating
 
