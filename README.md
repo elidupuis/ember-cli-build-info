@@ -1,3 +1,9 @@
+# :warning: Deprecated/Unsupported Addon
+
+**I found the async step to cause extreme slowness during the build phase. See [ember-cli-app-version](https://github.com/embersherpa/ember-cli-app-version) for a better alternative.**
+
+----
+
 # ember-cli-build-info
 
 > Inject build info into your routes, controllers, and services.
