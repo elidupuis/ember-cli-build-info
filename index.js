@@ -1,80 +1,34 @@
 /* jshint node: true */
 'use strict';
 
-var execSync = require('exec-sync');
+var parseVersion = require('./lib/parse-version');
+var mergeOptions = require('./lib/merge-options');
+var buildMetaTag = require('./lib/build-meta-tag');
 
 module.exports = {
   name: 'ember-cli-build-info',
 
   /**
-   * Collect Build Info data
+   * Store Application options, merged with defaults.
    */
   included: function(app, parentAddon) {
     var target = (parentAddon || app);
-    var info;
-    var commit;
-
-    var defaultOptions = {
-      metaTemplate: false, // 'VERSION: {VERSION} SHA: {COMMIT}',
-      injectedKey: 'buildInfo'
-    };
-
-    this.options = target.options.buildInfoOptions || {};
-
-    // merge options
-    for (var option in defaultOptions) {
-      if (!this.options.hasOwnProperty(option)) {
-        this.options[option] = defaultOptions[option];
-      }
-    }
-
-    // build info object
-    info = {
-      version: this.project.pkg.version || '',
-      desc: execSync('git describe --tags --long --always') || null
-    };
-
-    if (typeof info.desc === 'string') {
-      commit = info.desc.split('-').pop();
-
-      // remove the prepended `g`
-      if (commit[0] === 'g') {
-        commit = commit.substr(1);
-      }
-
-      info.commit = commit;
-    }
-
-    // store the info
-    this.info = info;
+    this.options = mergeOptions(target);
   },
 
   /**
-   * Expose the data on the APP object.
-   * FIXME: I doubt this is the best way to do this..
+   * Expose the build info on the APP object.
    */
   config: function(env, config) {
-    config.APP.BUILD_INFO = this.info;
+    config.APP.buildInfo = parseVersion(config.APP.version || require('git-repo-version')());
   },
 
   /**
    * Inject a <meta> tag with the build info as the content.
    */
-  contentFor: function(type) {
-    var info    = this.info;
-    var options = this.options;
-    var output;
-
+  contentFor: function(type, config) {
     if (type === 'head') {
-      //abort meta tag injection if there's no template
-      if (!options.metaTemplate) { return; }
-
-      output = options.metaTemplate
-        .replace(/\{VERSION\}/g, info.version)
-        .replace(/\{DESC\}/g, info.desc)
-        .replace(/\{COMMIT\}/g, info.commit);
-
-      return '<meta name="build-info" content="' + output + '"/>';
+      return buildMetaTag(config.APP.buildInfo, this.options.metaTemplate);
     }
   }
 };

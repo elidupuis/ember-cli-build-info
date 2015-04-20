@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export var initialize = function(container, application) {
-  var version = Ember.Object.create(application.BUILD_INFO);
+  var version = Ember.Object.create(application.buildInfo);
   var key = 'buildInfo';
 
   application.register('buildInfo:main', version, { instantiate: false, singleton: true });
