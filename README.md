@@ -49,7 +49,7 @@ Allows you to inject a meta tag containing the build info. Defaults to `false`.
 
 Available template keys include `{VERSION}` and `{COMMIT}`. These keys will be replaced by the current build info values.
 
-The example above would yeild:
+The example above would yield:
 ```html
 <meta name="build-info" content="version=0.0.2"/>
 ```
