@@ -8,10 +8,23 @@ Information includes:
 
 ```js
 buildInfo: {
-  version: '0.1.4', // pulled from package.json
-  commit: '53df212', // from `desc` above
+  version: '0.1.4',
+  commit: '53df212',
+  desc: '0.1.4+53df212'
 }
 ```
+
+If your app provides a version number in `package.json`, this is used as `version`.
+If not the name of current branch is used as `version`.
+If current HEAD is not a branch, the string `DETACHED_HEAD` is used.
+
+If current commit is tagged, git tag name is used as `version`.
+In these case `commit` is an empty string. Otherwise it's the SHA of the current commit. 
+
+`desc` is `version` and `commit` denoted by a "+". If commit is empty `desc` is `version`.
+
+Note: If git tag names, version number in package.json or branch names contain a "+"
+this addon may behave unexpectedly.
 
 ## Installation
 
@@ -26,6 +39,7 @@ In a template:
 ```html
 <p>Version: {{buildInfo.version}}</p>
 <p>SHA: {{buildInfo.commit}}</p>
+<p>Description: {{buildInfo.desc}}</p>
 ```
 
 In a route, controller, or service:
@@ -47,7 +61,7 @@ var app = new EmberApp({
 ### `metaTemplate`
 Allows you to inject a meta tag containing the build info. Defaults to `false`.
 
-Available template keys include `{VERSION}` and `{COMMIT}`. These keys will be replaced by the current build info values.
+Available template keys include `{VERSION}`, `{COMMIT}` and `{DESC}`. These keys will be replaced by the current build info values.
 
 The example above would yield:
 ```html
