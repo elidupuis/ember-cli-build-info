@@ -23,6 +23,9 @@ In these case `commit` is an empty string. Otherwise it's the SHA of the current
 
 `desc` is `version` and `commit` denoted by a "+". If commit is empty `desc` is `version`.
 
+Note: If git tag names, version number in package.json or branch names contain a "+"
+this addon may behave unexpectedly.
+
 ## Installation
 
 ```bash
