@@ -8,6 +8,7 @@ Information includes:
 
 ```js
 buildInfo: {
+  semver: '0.1.4-beta.1+53df212',
   version: '0.1.4',
   release: 'beta.1',
   build: '53df212'
@@ -58,6 +59,8 @@ The example above would yield:
 ```html
 <meta name="build-info" content="version=0.0.2"/>
 ```
+
+> _Note that `{COMMIT}` is deprecated in favour of `{BUILD}`_.
 
 # Collaborating
 
