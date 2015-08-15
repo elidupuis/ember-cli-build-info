@@ -3,8 +3,11 @@
 {{log buildInfo}}
 <h3>Build Info</h3>
 <ul>
+  <li>SemVer: {{buildInfo.semver}}</li>
   <li>Version: {{buildInfo.version}}</li>
-  <li>Commit: {{buildInfo.commit}}</li>
+  <li>Release: {{buildInfo.release}}</li>
+  <li>Build: {{buildInfo.build}}</li>
+  <li>Commit: {{buildInfo.commit}} (deprecated)</li>
 </ul>
 
 {{outlet}}
