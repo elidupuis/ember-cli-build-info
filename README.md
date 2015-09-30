@@ -8,10 +8,15 @@ Information includes:
 
 ```js
 buildInfo: {
-  version: '0.1.4', // pulled from package.json
-  commit: '53df212', // from `desc` above
+  semver: '0.1.4-beta.1+53df212',
+  version: '0.1.4',
+  release: 'beta.1',
+  build: '53df212'
 }
 ```
+
+See [semver-utils.parse](https://github.com/coolaj86/semver-utils#semverutilsparsesemverstring) for a list of all values available.
+
 
 ## Installation
 
@@ -25,7 +30,8 @@ The data is injected into routes, controllers, and services using the `buildInfo
 In a template:
 ```html
 <p>Version: {{buildInfo.version}}</p>
-<p>SHA: {{buildInfo.commit}}</p>
+<p>Release: {{buildInfo.release}}</p>
+<p>SHA: {{buildInfo.build}}</p>
 ```
 
 In a route, controller, or service:
@@ -47,13 +53,14 @@ var app = new EmberApp({
 ### `metaTemplate`
 Allows you to inject a meta tag containing the build info. Defaults to `false`.
 
-Available template keys include `{VERSION}` and `{COMMIT}`. These keys will be replaced by the current build info values.
+Available template keys include `{SEMVER}`, `{VERSION}`, `{RELEASE}` and `{BUILD}`. These keys will be replaced by the current build info values.
 
 The example above would yield:
 ```html
 <meta name="build-info" content="version=0.0.2"/>
 ```
 
+> _Note that `{COMMIT}` is deprecated in favour of `{BUILD}`_.
 
 # Collaborating
 
