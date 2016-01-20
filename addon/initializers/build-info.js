@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-export var initialize = function(container, application) {
+export var initialize = function(application) {
   var version = Ember.Object.create(application.buildInfo);
   var key = 'buildInfo';
 
