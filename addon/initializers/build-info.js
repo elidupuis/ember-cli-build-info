@@ -1,8 +1,9 @@
 import Ember from 'ember';
 
-export var initialize = function(container, application) {
-  var version = Ember.Object.create(application.buildInfo);
-  var key = 'buildInfo';
+export var initialize = function() {
+  let application = arguments[1] || arguments[0];
+  let version = Ember.Object.create(application.buildInfo);
+  let key = 'buildInfo';
 
   application.register('buildInfo:main', version, { instantiate: false, singleton: true });
   application.inject('route', key, 'buildInfo:main');
