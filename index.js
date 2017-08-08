@@ -13,7 +13,8 @@ module.exports = {
    */
   included: function(app, parentAddon) {
     var target = (parentAddon || app);
-    this.options = mergeOptions(target);
+    this.ops = mergeOptions(target);
+    this._super.included.apply(this, arguments);
   },
 
   /**
@@ -28,7 +29,7 @@ module.exports = {
    */
   contentFor: function(type, config) {
     if (type === 'head') {
-      return buildMetaTag(config.APP.buildInfo, this.options.metaTemplate);
+      return buildMetaTag(config.APP.buildInfo, this.ops.metaTemplate);
     }
   }
 };
