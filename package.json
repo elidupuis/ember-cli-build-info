@@ -48,7 +48,7 @@
     "sha"
   ],
   "dependencies": {
-    "git-repo-version": "^0.3.0",
+    "git-repo-version": "^0.4.1",
     "semver-utils": "^1.1.0",
     "ember-cli-babel": "^5.1.5"
   },
